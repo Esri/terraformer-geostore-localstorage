@@ -37,7 +37,7 @@ module.exports = function (grunt) {
         options: {
           specs: 'spec/*Spec.js',
           helpers: [
-            './node_modules/terraformer.js',
+            './node_modules/terraformer/terraformer.js',
             './node_modules/terraformer-geostore/browser/terraformer-geostore.js'
           ],
           //keepRunner: true,
