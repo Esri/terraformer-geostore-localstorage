@@ -1,9 +1,4 @@
 (function (root, factory) {
-  // Node.
-  if(typeof module === 'object' && typeof module.exports === 'object') {
-    exports = module.exports = factory(require('terraformer'));
-  }
-
   // Browser Global.
   if(typeof root.navigator === "object") {
     if (!root.Terraformer){
@@ -59,9 +54,7 @@
   };
 
   LocalStorage.prototype.set = function(feature){
-    if (callback) {
-      localStorage.setItem(this.key(feature.id), JSON.stringify(feature));
-    }
+    localStorage.setItem(this.key(feature.id), JSON.stringify(feature));
   };
 
   LocalStorage.prototype.update = function(geojson, callback){
@@ -71,22 +64,12 @@
     }
   };
 
-  LocalStorage.prototype.toJSON = function(){
-    var exports = {};
-    for(var feature in localStorage){
-      if(feature.match(this._key)){
-        exports[feature] = localStorage[feature];
-      }
-    }
-    return exports;
-  };
-
   LocalStorage.prototype.serialize = function(callback){
     var objs = [];
 
     for (var key in localStorage){
       if(key.match(this._key)){
-        objs.push(localStorage.getItem(key));
+        objs.push(JSON.parse(localStorage.getItem(key)));
       }
     }
 
@@ -95,12 +78,15 @@
     }
   };
 
-  LocalStorage.prototype.deserialize = function(serial){
+  LocalStorage.prototype.deserialize = function(serial, callback){
     var data = JSON.parse(serial);
     for (var i = data.length - 1; i >= 0; i--) {
       this.set(data[i]);
     }
-    return this;
+
+    if (callback) {
+      callback();
+    }
   };
 
   exports.LocalStorage = LocalStorage;
