@@ -1,0 +1,9 @@
+{
+  "name": "terraformer-geostore-localstorage",
+  "version": "1.0.1",
+  "main": "terraformer-geostore-localstorage.min.js",
+  "ignore"        : ["versions", "spec"],
+  "dependencies": {
+    "terraformer": "~1.0.0"
+  }
+}
